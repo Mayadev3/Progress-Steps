@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Progress Steps</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="progress-container"><!--we will use the before pseudo selector on it to create an empty complete grey line in the back so that the later blue line can move along it-->
+         <div class="progress" id="progress"></div><!--this is only for styling of the blue line-->
+        <div class="circle active">1</div>
+        <div class="circle">2</div>
+        <div class="circle">3</div>
+        <div class="circle">4</div>
+      </div>
+     <button class="btn" id="prev" type="button" disabled>Prev</button>
+     <button class="btn" id="next">Next</button>
+    <div>
+    <script src="/script.js"></script>
+  </body>
+</html>

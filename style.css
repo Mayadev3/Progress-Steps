@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css?family=Muli:wght@400;700&display=swap");
+:root {
+  --line-border-fill: #1e429f;
+  --line-border-empty: #ced4da;
+}
+* {
+  box-sizing: border-box; /*so padding and border doesnt effect the width and height of the element*/
+}
+body {
+  font-family: "Muli", sand-serif;
+  background-color: #e5edff;
+  margin: 0;
+  min-height: 100vh; /* we need to always assign a height where we are displaying flex so the items know where to center*/
+  display: flex; /*we used display flex here to be able to align the container holding the buttons and numbers in the center*/
+  justify-content: center; /* this pushed them all to the center horizentally*/
+  align-items: center; /*this pushes them in all to the center vertically*/
+  overflow: hidden; /*so there are no scroll bars visible*/
+}
+
+.container {
+  text-align: center; /*it put the buttons in the middle horizentally since they are inline elements*/
+}
+.progress-container {
+  /*The flex container is always as big as the space the items take and using justify content and align items are different ways of distributing this exact space*/
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+  max-width: 100%;
+  margin-bottom: 30px;
+  position: relative; /*the container with the position relative must always have a width or height so that the child that will have position absolute knows where to move relative to what width or height otherwise it would collapse*/
+}
+.progress-container::before {
+  /*we put the before pseudo element on progress container because it is the immediate container of the blue line so this means it is the carrier of it*/
+  /*we styled the blue line before this one so if there is something you dont understand go to the blue line styling first*/
+  content: "";
+  background-color: var(--line-border-empty);
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: -1; /*we want it to be behind the numbers and behind the circles*/
+}
+.progress {
+  /*this is the styling of the blue line*/
+  background-color: var(--line-border-fill);
+  position: absolute;
+  top: 50%;
+  height: 2px; /*how long it is vertically*/ /*so no need to align things horizentally or vertically*/
+  width: 0%; /*how long it is horizentally*/ /* it is 0 because this is the starting point*/ /*so we can use an empty div before or after a certain content to decorate around it */
+  transform: translateY(
+    -50%
+  ); /*we used it to put the middle of the line in the middle not the top of the line in the middle so we need to push it up 50%*/
+  z-index: -1; /*we want it to be behind the numbers and behind the circles*/
+  transition: 0.4s ease; /*we created a transition when we click the button we dont want it to just jump we want it to ease its movement..so transition is not used to move something it is used to control how smoothly it moves*/
+}
+.circle {
+  background-color: white;
+  color: #16bdca;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex; /*we used flex to center the numbers in the circles they are sitting in*/
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--line-border-empty);
+  transition: 0.4s ease; /*we created a transition to smooth the movement of the border when it becomes blue*/
+}
+.circle.active {
+  border-color: var(--line-border-fill);
+}
+.btn {
+  background-color: var(--line-border-fill);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 30px;
+  margin: 5px;
+  font-size: 14px;
+}
+.btn:active {
+  transform: scale(
+    0.98
+  ); /*the scale is 1 by default...it is like a zoom in and out thing...so now when you click on it you see the entire button gets a bit smaller*/
+}
+.btn:focus {
+  outline: 0; /*when we click on the button we get a border, so we use the focus state to take off that outline*/
+}
+.btn:disabled {
+  background-color: var(
+    --line-border-empty
+  ); /*this is how we target the disabled button*/
+  cursor: not-allowed; /*this makes a red stop circle as a cursor on the disabled button*/
+}
+
+/*Extra Notes: with display flex to work, you dont  have to have a div on each item like i used to think, you can apply display flex and move around the items
+with the flex property, but only the container with the display flex should have a div, the other items inside dont*/
